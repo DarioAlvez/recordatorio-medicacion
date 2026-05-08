@@ -48,7 +48,7 @@ recordatorio-medicacion/
 
 Su workflow:
 
-
+```text
 Login
   ↓
 Registro, si el usuario no tiene cuenta
@@ -60,6 +60,7 @@ Crear recordatorio
 Ver detalle
   ↓
 Editar o eliminar recordatorio
+```
 
 Inicializacion de la Aplicacion:
 
