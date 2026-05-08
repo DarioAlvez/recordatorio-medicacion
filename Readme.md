@@ -81,3 +81,12 @@ Inicializacion de la Aplicacion:
 
 
 El desarrollo se dio en Antigravity y los test mediantes Expo Go en un celular android.
+
+
+El video Demo y la explicacion quedan en:
+
+https://drive.google.com/drive/folders/1iNfAzBgsp0DUFEfH9065Wkh1pYc8yBhx?usp=sharing
+
+  
+
+
