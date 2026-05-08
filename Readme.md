@@ -22,6 +22,7 @@ Al presionar "Cerrar Sesión" se cierra la sesión, volviendo a la pantalla prin
 
 Arquitectura de la aplicacion:
 
+```text
 recordatorio-medicacion/
 ├── App.tsx
 ├── assets/
@@ -43,6 +44,7 @@ recordatorio-medicacion/
     │
     └── types/
         └── types.ts
+```
 
 Su workflow:
 
