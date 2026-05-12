@@ -13,10 +13,11 @@ Es una App de recordatorios de medicamentos con la posibilidad de guardar los mi
 
 *Funcionalidades: 
 
-Al iniciar la aplicación, se solicita al usuario inicie sesión (LoginScreen). Si el usuario no tiene cuenta, se puede registrar (RegistroScreen). 
+Al iniciar la aplicación, se solicita al usuario inicie sesión (LoginScreen). Si el usuario no tiene cuenta, se puede registrar (Registro creen).   
 Al momento de ingresar el mail no distingue entre mayusculas y minusculas, la contraseña requiere de al menos un simbolo, y entre 8 y 10 caracteres.
 
 Una vez ingresado (HomeScreen), permite ver el listado de los recordatorios (mediante FlatList) y gestionar seleccionando la card correspondiente la eliminacion de dicho recordatorio(DetalleRecordatorioScreen). 
+
 Al presionar "Nuevo Recordatorio" se puede agregar uno nuevo (GestionRecordatorioScreen). En esta pagina podemos definir el nombre del medicamento, una descripcion breve y setear el intervalo de tiempo de la alerta entre segundos, minutos u horas. Desde la parte superior de cada pantalla podemos volver a la pantalla anterior (utilizando react-native/stack-navigator).
 Al presionar "Cerrar Sesión" se cierra la sesión, volviendo a la pantalla principal.
 
@@ -62,7 +63,11 @@ Ver detalle
 Editar o eliminar recordatorio
 ```
 
-Inicializacion de la Aplicacion:
+*Inicializacion de la Aplicacion:
+
+`npm install`
+
+*Creacion de Proyecto:
 
 `npx create-expo-app recordatorio-medicacion -t expo-template-blank-typescript`
 
@@ -79,11 +84,12 @@ Inicializacion de la Aplicacion:
 
 `npx expo start`    ((en mi caso particular al tener una PC de escritorio agregue --tunnel para probar la app en mi celular))
 
+*Pruebas:
 
-El desarrollo se dio en Antigravity y los test mediantes Expo Go en un celular android.
+El desarrollo se realizó en Antigravity y los test mediantes Expo Go en un celular android.
 
 
-El video Demo y la explicacion quedan en:
+*Video Demo y explicacion:
 
 https://drive.google.com/drive/folders/1iNfAzBgsp0DUFEfH9065Wkh1pYc8yBhx?usp=sharing
 
