@@ -6,6 +6,10 @@ import RegistroScreen from '../screens/RegistroScreen';
 import HomeScreen from '../screens/HomeScreen';
 import GestionRecordatorioScreen from '../screens/GestionRecordatorioScreen';
 import DetalleRecordatorioScreen from '../screens/DetalleRecordatorioScreen';
+import CameraScreen from '../screens/CameraScreen';
+import FarmaciasScreen from '../screens/FarmaciasScreen';
+import AgregarFarmaciaScreen from '../screens/AgregarFarmaciaScreen';
+import EditarFarmaciaScreen from '../screens/EditarFarmaciaScreen';
 
 export type RootStackParamList = {
     Login: undefined;
@@ -13,6 +17,10 @@ export type RootStackParamList = {
     Home: undefined;
     GestionRecordatorios: undefined;
     DetalleRecordatorio: { id: string };
+    Camera: { onPhotoCapture: (photo: string) => void };
+    Farmacias: undefined;
+    AgregarFarmacia: undefined;
+    EditarFarmacia: { id: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,7 +54,28 @@ export default function NavegacionPrincipal() {
                     component={DetalleRecordatorioScreen}
                     options={{ title: 'Detalle' }}
                 />
+                <Stack.Screen
+                    name="Camera"
+                    component={CameraScreen}
+                    options={{ title: 'Capturar Foto' }}
+                />
+                <Stack.Screen
+                    name="Farmacias"
+                    component={FarmaciasScreen}
+                    options={{ title: 'Farmacias Cercanas' }}
+                />
+                <Stack.Screen
+                    name="AgregarFarmacia"
+                    component={AgregarFarmaciaScreen}
+                    options={{ title: 'Agregar Farmacia' }}
+                />
+                <Stack.Screen
+                    name="EditarFarmacia"
+                    component={EditarFarmaciaScreen}
+                    options={{ title: 'Editar Farmacia' }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
 }
+

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { pedirPermisosNotificaciones } from '../data/notifications';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
 
 import { obtenerRecordatorios } from '../data/storage';
 import { Recordatorio } from '../types/types';
@@ -60,17 +60,28 @@ export default function HomeScreen({ navigation }: any) {
                             }
                         >
 
-                            <Text style={styles.name}>
-                                {item.nombreMedicacion}
-                            </Text>
+                            <View style={styles.cardContent}>
+                                <View style={styles.textContent}>
+                                    <Text style={styles.name}>
+                                        {item.nombreMedicacion}
+                                    </Text>
 
-                            <Text>
-                                Cada {item.tiempo} {item.unidad}
-                            </Text>
+                                    <Text>
+                                        Cada {item.tiempo} {item.unidad}
+                                    </Text>
 
-                            <Text>
-                                {item.descripcion}
-                            </Text>
+                                    <Text>
+                                        {item.descripcion}
+                                    </Text>
+                                </View>
+
+                                {item.foto && (
+                                    <Image
+                                        source={{ uri: item.foto }}
+                                        style={styles.thumbnail}
+                                    />
+                                )}
+                            </View>
 
                         </TouchableOpacity>
 
@@ -87,6 +98,17 @@ export default function HomeScreen({ navigation }: any) {
                 >
                     <Text style={styles.buttonText}>
                         Nuevo Recordatorio
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.farmaciasButton}
+                    onPress={() =>
+                        navigation.navigate('Farmacias')
+                    }
+                >
+                    <Text style={styles.buttonText}>
+                        🗺️ Farmacias Cercanas
                     </Text>
                 </TouchableOpacity>
 
@@ -129,14 +151,38 @@ const styles = StyleSheet.create({
         marginBottom: 12
     },
 
+    cardContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+
+    textContent: {
+        flex: 1
+    },
+
     name: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 6
     },
 
+    thumbnail: {
+        width: 60,
+        height: 60,
+        borderRadius: 8,
+        marginLeft: 12
+    },
+
     button: {
         backgroundColor: '#2563eb',
+        padding: 14,
+        borderRadius: 8,
+        marginTop: 10
+    },
+
+    farmaciasButton: {
+        backgroundColor: '#7c3aed',
         padding: 14,
         borderRadius: 8,
         marginTop: 10

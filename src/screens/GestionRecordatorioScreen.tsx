@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, KeyboardAvoidingView, Platform } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, KeyboardAvoidingView, Platform, Image, Linking } from 'react-native';
 
 import { guardarRecordatorios, obtenerRecordatorios } from '../data/storage';
 import { programarNotificacion } from '../data/notifications';
+import { seleccionarDelaGaleria } from '../data/imageHandler';
+import { requestCameraPermission, requestMediaLibraryPermission } from '../data/permissions';
 
 export default function GestionRecordatorioScreen({ navigation }: any) {
 
@@ -19,6 +21,80 @@ export default function GestionRecordatorioScreen({ navigation }: any) {
         useState<'segundos' | 'minutos' | 'horas'>(
             'minutos'
         );
+
+    const [foto, setFoto] = useState<string | null>(null);
+
+    const handleCapturarFoto = async () => {
+        const permission = await requestCameraPermission();
+
+        if (permission.status === 'granted') {
+            navigation.navigate('Camera', {
+                onPhotoCapture: (photoData: string) => {
+                    setFoto(photoData);
+                }
+            });
+        } else if (permission.status === 'denied') {
+            Alert.alert(
+                'Permiso de cámara denegado',
+                'Se requiere acceso a la cámara para capturar fotos. Por favor, habilita el permiso en configuración.',
+                [
+                    {
+                        text: 'Abrir configuración',
+                        onPress: () => Linking.openSettings(),
+                        style: 'default'
+                    },
+                    {
+                        text: 'Cancelar',
+                        style: 'cancel'
+                    }
+                ]
+            );
+        } else {
+            Alert.alert(
+                'Permiso pendiente',
+                'Por favor, otorga permisos de cámara cuando se solicite.'
+            );
+        }
+    };
+
+    const handleSeleccionarGaleria = async () => {
+        const permission = await requestMediaLibraryPermission();
+
+        if (permission.status === 'granted') {
+            const result = await seleccionarDelaGaleria();
+
+            if (result.success && result.data) {
+                setFoto(result.data);
+            } else {
+                Alert.alert('Error', result.error || 'No se pudo seleccionar la imagen');
+            }
+        } else if (permission.status === 'denied') {
+            Alert.alert(
+                'Permiso de galería denegado',
+                'Se requiere acceso a la galería para seleccionar fotos.',
+                [
+                    {
+                        text: 'Abrir configuración',
+                        onPress: () => Linking.openSettings(),
+                        style: 'default'
+                    },
+                    {
+                        text: 'Cancelar',
+                        style: 'cancel'
+                    }
+                ]
+            );
+        } else {
+            Alert.alert(
+                'Permisos pendientes',
+                'No se puede solicitar permisos de galería en este momento. Intenta de nuevo.'
+            );
+        }
+    };
+
+    const eliminarFoto = () => {
+        setFoto(null);
+    };
 
     const guardar = async () => {
         if (!nombreMedicacion || !descripcion || !tiempo) {
@@ -46,7 +122,8 @@ export default function GestionRecordatorioScreen({ navigation }: any) {
             descripcion: descripcion,
             tiempo: Number(tiempo),
             unidad: unidad,
-            notificationId: notificationId
+            notificationId: notificationId,
+            foto: foto
         };
 
         lista.push(nuevo);
@@ -58,6 +135,7 @@ export default function GestionRecordatorioScreen({ navigation }: any) {
         setNombreMedicacion('');
         setDescripcion('');
         setTiempo('');
+        setFoto(null);
 
         navigation.goBack();
     };
@@ -133,6 +211,43 @@ export default function GestionRecordatorioScreen({ navigation }: any) {
                         Unidad seleccionada: {unidad}
                     </Text>
 
+                    {foto && (
+                        <View style={styles.fotoContainer}>
+                            <Image
+                                source={{ uri: foto }}
+                                style={styles.fotoPreview}
+                            />
+                            <TouchableOpacity
+                                style={styles.eliminarFotoButton}
+                                onPress={eliminarFoto}
+                            >
+                                <Text style={styles.eliminarFotoText}>
+                                    Eliminar foto
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            style={styles.photoButton}
+                            onPress={handleCapturarFoto}
+                        >
+                            <Text style={styles.buttonText}>
+                                📷 Capturar Foto
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.photoButton}
+                            onPress={handleSeleccionarGaleria}
+                        >
+                            <Text style={styles.buttonText}>
+                                🖼️ Galería
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
                     <TouchableOpacity
                         style={styles.button}
                         onPress={guardar}
@@ -163,9 +278,9 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 26,
         fontWeight: 'bold',
-        marginBottom: 80,
+        marginBottom: 20,
         textAlign: 'center',
-        marginTop: '15%'
+        marginTop: '5%'
     },
 
     input: {
@@ -191,6 +306,44 @@ const styles = StyleSheet.create({
     selected: {
         textAlign: 'center',
         marginBottom: 20
+    },
+
+    fotoContainer: {
+        alignItems: 'center',
+        marginBottom: 20
+    },
+
+    fotoPreview: {
+        width: 150,
+        height: 150,
+        borderRadius: 8,
+        marginBottom: 10
+    },
+
+    eliminarFotoButton: {
+        backgroundColor: '#dc2626',
+        paddingHorizontal: 20,
+        paddingVertical: 8,
+        borderRadius: 8
+    },
+
+    eliminarFotoText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+
+    buttonContainer: {
+        flexDirection: 'row',
+        gap: 10,
+        marginBottom: 12
+    },
+
+    photoButton: {
+        flex: 1,
+        backgroundColor: '#9333ea',
+        padding: 12,
+        borderRadius: 8
     },
 
     button: {

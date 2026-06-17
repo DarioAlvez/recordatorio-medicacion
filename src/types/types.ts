@@ -1,5 +1,3 @@
-//para formatear estructura recordatorio y re utilizarlo
-
 export type Recordatorio = {
     id: string;
     nombreMedicacion: string;
@@ -7,5 +5,23 @@ export type Recordatorio = {
     tiempo: number;
     unidad: 'segundos' | 'minutos' | 'horas';
     notificationId?: string;
+    foto?: string;
+};
+
+export type Farmacia = {
+    id: string;
+    nombre: string; 
+    direccion: string;
+    telefono: string;
+    ubicacion: {
+        latitude: number;
+        longitude: number;
+    };
+    
+};
+
+export type UbicacionActual = {
+    latitude: number;
+    longitude: number;
 };
 
