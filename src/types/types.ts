@@ -17,6 +17,7 @@ export type Farmacia = {
         latitude: number;
         longitude: number;
     };
+    createdAt: string;
     
 };
 
