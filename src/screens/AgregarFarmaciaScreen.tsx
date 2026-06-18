@@ -45,34 +45,18 @@ export default function AgregarFarmaciaScreen({
 
     const obtenerUbicacionInicial = async () => {
         try {
-            const permiso =
-                await getLocationPermissionStatus();
+            const permiso = await getLocationPermissionStatus();
+            let locationGranted = permiso === 'granted';
 
             if (permiso === 'undetermined') {
-                const result =
-                    await requestLocationPermission();
-
-                if (result.status !== 'granted') {
-                    Alert.alert(
-                        'Permiso requerido',
-                        'Se necesita acceso a la ubicación'
-                    );
-                    setLoading(false);
-                    return;
-                }
+                const result = await requestLocationPermission();
+                locationGranted = result.status === 'granted';
             }
 
-            if (permiso === 'denied') {
-                Alert.alert(
-                    'Permiso denegado',
-                    'Habilita permisos en configuración'
-                );
-                setLoading(false);
-                return;
+            let ubicacionActual = null;
+            if (locationGranted) {
+                ubicacionActual = await obtenerUbicacionActual();
             }
-
-            const ubicacionActual =
-                await obtenerUbicacionActual();
 
             if (ubicacionActual) {
                 const region = {
@@ -87,16 +71,17 @@ export default function AgregarFarmaciaScreen({
                     longitude: ubicacionActual.longitude
                 });
             } else {
-                const santiagoCL = {
-                    latitude: -33.8688,
-                    longitude: -51.2093,
+                // Buenos Aires default coordinates
+                const defaultRegion = {
+                    latitude: -34.6037,
+                    longitude: -58.3816,
                     latitudeDelta: 0.05,
                     longitudeDelta: 0.05
                 };
-                setUbicacionInicial(santiagoCL);
+                setUbicacionInicial(defaultRegion);
                 setUbicacion({
-                    latitude: -33.8688,
-                    longitude: -51.2093
+                    latitude: -34.6037,
+                    longitude: -58.3816
                 });
             }
         } catch (error) {

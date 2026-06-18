@@ -108,7 +108,29 @@ export default function HomeScreen({ navigation }: any) {
                     }
                 >
                     <Text style={styles.buttonText}>
-                        🗺️ Farmacias Cercanas
+                        Farmacias Cercanas
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.contactosButton}
+                    onPress={() =>
+                        navigation.navigate('Contactos')
+                    }
+                >
+                    <Text style={styles.buttonText}>
+                        Contactos de Emergencia
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.calendarioButton}
+                    onPress={() =>
+                        navigation.navigate('Calendario')
+                    }
+                >
+                    <Text style={styles.buttonText}>
+                        Calendario de Consultas
                     </Text>
                 </TouchableOpacity>
 
@@ -183,6 +205,20 @@ const styles = StyleSheet.create({
 
     farmaciasButton: {
         backgroundColor: '#7c3aed',
+        padding: 14,
+        borderRadius: 8,
+        marginTop: 10
+    },
+
+    contactosButton: {
+        backgroundColor: '#059669',
+        padding: 14,
+        borderRadius: 8,
+        marginTop: 10
+    },
+
+    calendarioButton: {
+        backgroundColor: '#0284c7',
         padding: 14,
         borderRadius: 8,
         marginTop: 10

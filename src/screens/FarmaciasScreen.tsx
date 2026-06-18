@@ -27,56 +27,28 @@ export default function FarmaciasScreen({ navigation }: any) {
         try {
             setLoading(true);
 
-            const permiso =
-                await getLocationPermissionStatus();
-
-            if (permiso === 'undetermined') {
-                const result =
-                    await requestLocationPermission();
-
-                if (result.status !== 'granted') {
-                    Alert.alert(
-                        'Permiso de ubicación requerido',
-                        'Se necesita acceso a tu ubicación para ver farmacias cercanas',
-                        [
-                            {
-                                text: 'Abrir configuración',
-                                onPress: () =>
-                                    Linking.openSettings()
-                            },
-                            { text: 'Cancelar', style: 'cancel' }
-                        ]
-                    );
-                    setLoading(false);
-                    return;
-                }
-            }
-
-            if (permiso === 'denied') {
-                Alert.alert(
-                    'Permiso denegado',
-                    'Habilita el permiso en configuración',
-                    [
-                        {
-                            text: 'Configuración',
-                            onPress: () =>
-                                Linking.openSettings()
-                        },
-                        { text: 'Cancelar', style: 'cancel' }
-                    ]
-                );
-                setLoading(false);
-                return;
-            }
-
-            const ubicacion = await obtenerUbicacionActual();
-            if (ubicacion) {
-                setUbicacionActual(ubicacion);
-            }
-
+            // 1. Siempre cargar las farmacias desde el almacenamiento local
             const lista = await obtenerFarmacias();
             setFarmacias(lista);
 
+            // 2. Intentar obtener el permiso de ubicación sin bloquear
+            const permiso = await getLocationPermissionStatus();
+            let locationGranted = permiso === 'granted';
+
+            if (permiso === 'undetermined') {
+                const result = await requestLocationPermission();
+                locationGranted = result.status === 'granted';
+            }
+
+            let ubicacion = null;
+            if (locationGranted) {
+                ubicacion = await obtenerUbicacionActual();
+                if (ubicacion) {
+                    setUbicacionActual(ubicacion);
+                }
+            }
+
+            // 3. Calcular distancias si tenemos la ubicación actual
             if (ubicacion && lista.length > 0) {
                 const conDistancia = lista
                     .map((f) => ({

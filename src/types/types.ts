@@ -10,7 +10,7 @@ export type Recordatorio = {
 
 export type Farmacia = {
     id: string;
-    nombre: string; 
+    nombre: string;
     direccion: string;
     telefono: string;
     ubicacion: {
@@ -18,11 +18,27 @@ export type Farmacia = {
         longitude: number;
     };
     createdAt: string;
-    
+
 };
 
 export type UbicacionActual = {
     latitude: number;
     longitude: number;
 };
+
+export type ContactoEmergencia = {
+    id: string;
+    nombre: string;
+    telefono: string;
+};
+
+export type ConsultaMedica = {
+    id: string;
+    titulo: string;
+    fecha: string;
+    hora: string;
+    notas: string;
+    eventId?: string;
+};
+
 

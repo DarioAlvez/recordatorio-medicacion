@@ -1,4 +1,4 @@
-                                *** Proyecto de App Movil con los contenidos vistos hasta la fecha ***
+                                 *** Proyecto de App Movil con los contenidos vistos hasta la fecha ***
 
 Contenido de la App:
 
@@ -16,6 +16,8 @@ Parcial 2:
 **expo-image-picker** Libreria de acceso a Galeria de dispositivo
 **Expo-location** Libreria de acceso GPS
 **React-Native-Map** Libreria de Mapa de react-native (complementos MapView, Marker, PROVIDER_GOOGLE)
+**expo-contacts** Libreria de acceso a Contactos del dispositivo
+**expo-calendar** Libreria de acceso a Calendario del dispositivo
 
 
 *Funcionalidades: 
@@ -28,6 +30,12 @@ Una vez ingresado (HomeScreen), permite ver el listado de los recordatorios (med
 Al presionar "Nuevo Recordatorio" se puede agregar uno nuevo (GestionRecordatorioScreen). En esta pagina podemos definir el nombre del medicamento, una descripcion breve y setear el intervalo de tiempo de la alerta entre segundos, minutos u horas. Desde la parte superior de cada pantalla podemos volver a la pantalla anterior (utilizando react-native/stack-navigator).
 Al presionar "Cerrar Sesión" se cierra la sesión, volviendo a la pantalla principal.
 
+Al presionar "Farmacias Cercanas" se accede a una pantalla (FarmaciasScreen) que muestra en un mapa interactivo (react-native-maps) la ubicación actual del dispositivo. Permite agregar nuevas farmacias tocando el mapa (AgregarFarmaciaScreen), así como editarlas o eliminarlas (EditarFarmaciaScreen).
+
+Al presionar "Contactos de Emergencia" se accede a una nueva pantalla (ContactosScreen) con el título "Contactos de emergencia" que permite importar un contacto de la agenda del dispositivo (expo-contacts), pudiendo realizar llamadas rápidas de emergencia directamente o eliminarlo de la lista.
+
+Al presionar "Calendario de Consultas" se accede a una nueva pantalla (CalendarioScreen) con el título "Calendario de consulta medica" que permite programar citas o compromisos médicos (expo-calendar) en el calendario nativo de su dispositivo móvil de forma sincronizada con una alarma recordatorio (15 minutos antes).
+
 Arquitectura de la aplicacion:
 
 ```text
@@ -38,6 +46,8 @@ recordatorio-medicacion/
 │
 └── src/
     ├── data/
+    │   ├── calendar.ts
+    │   ├── contacts.ts
     │   ├── farmacias.ts
     │   ├── imageHandler.ts
     │   ├── location.ts
@@ -57,7 +67,9 @@ recordatorio-medicacion/
     │   ├── CamaraScreen.tsx
     │   ├── FarmaciasScreen.tsx
     │   ├── AgregarFarmaciaScreen.tsx
-    │   └── EditarFarmaciaScreen.tsx
+    │   ├── EditarFarmaciaScreen.tsx
+    │   ├── ContactosScreen.tsx
+    │   └── CalendarioScreen.tsx
     │
     └── types/
         └── types.ts
@@ -70,7 +82,8 @@ Login
   ↓
 Registro, si el usuario no tiene cuenta
   ↓
-Home
+Home ──┬→ Contactos de emergencia (Importar y llamar contactos)
+  │    └→ Calendario de consultas médicas (Agendar eventos en calendario nativo)
   ↓
 Crear recordatorio
   ↓
@@ -101,7 +114,9 @@ Editar o eliminar recordatorio
 `npx expo install expo-image-picker expo-camera expo-image-manipulator`
 `npx expo install expo-location`
 `npx expo install react-native-maps`
-`
+`npx expo install expo-contacts`
+`npx expo install expo-calendar`
+
 
 *Codigo para ejecutar:
 
@@ -114,8 +129,7 @@ El desarrollo se realizó en Antigravity y los test mediantes Expo Go en un celu
 
 *Video Demo y explicacion:
 
+Parcial 1:
 https://drive.google.com/drive/folders/1iNfAzBgsp0DUFEfH9065Wkh1pYc8yBhx?usp=sharing
 
-  
-
-
+Parcial 2:

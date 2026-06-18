@@ -10,6 +10,8 @@ import CameraScreen from '../screens/CameraScreen';
 import FarmaciasScreen from '../screens/FarmaciasScreen';
 import AgregarFarmaciaScreen from '../screens/AgregarFarmaciaScreen';
 import EditarFarmaciaScreen from '../screens/EditarFarmaciaScreen';
+import ContactosScreen from '../screens/ContactosScreen';
+import CalendarioScreen from '../screens/CalendarioScreen';
 
 export type RootStackParamList = {
     Login: undefined;
@@ -21,6 +23,8 @@ export type RootStackParamList = {
     Farmacias: undefined;
     AgregarFarmacia: undefined;
     EditarFarmacia: { id: string };
+    Contactos: undefined;
+    Calendario: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -73,6 +77,16 @@ export default function NavegacionPrincipal() {
                     name="EditarFarmacia"
                     component={EditarFarmaciaScreen}
                     options={{ title: 'Editar Farmacia' }}
+                />
+                <Stack.Screen
+                    name="Contactos"
+                    component={ContactosScreen}
+                    options={{ title: 'Contactos de emergencia' }}
+                />
+                <Stack.Screen
+                    name="Calendario"
+                    component={CalendarioScreen}
+                    options={{ title: 'Calendario de consulta medica' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
