@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, KeyboardAvoidingView, Platform, Image, Linking } from 'react-native';
-
-import { guardarRecordatorios, obtenerRecordatorios } from '../data/storage';
+import { useRecordatoriosStore } from '../store/useRecordatoriosStore';
 import { programarNotificacion } from '../data/notifications';
 import { seleccionarDelaGaleria } from '../data/imageHandler';
 import { requestCameraPermission, requestMediaLibraryPermission } from '../data/permissions';
 
 export default function GestionRecordatorioScreen({ navigation }: any) {
+    const agregarRecordatorio = useRecordatoriosStore((state) => state.agregarRecordatorio);
 
     const [nombreMedicacion, setNombreMedicacion] =
         useState('');
@@ -102,8 +102,6 @@ export default function GestionRecordatorioScreen({ navigation }: any) {
             return;
         }
 
-        const lista = await obtenerRecordatorios();
-
         let notificationId = '';
 
         try {
@@ -123,12 +121,10 @@ export default function GestionRecordatorioScreen({ navigation }: any) {
             tiempo: Number(tiempo),
             unidad: unidad,
             notificationId: notificationId,
-            foto: foto
+            foto: foto || undefined
         };
 
-        lista.push(nuevo);
-
-        await guardarRecordatorios(lista);
+        await agregarRecordatorio(nuevo);
 
         Alert.alert('Aviso', 'Recordatorio guardado');
 

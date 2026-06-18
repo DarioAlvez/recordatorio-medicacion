@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Image, Alert, ScrollView, Linking } from 'react-native';
-
-import { obtenerRecordatorios } from '../data/storage';
-import { Recordatorio } from '../types/types';
-import { guardarRecordatorios } from '../data/storage';
-import { cancelarNotificacion } from '../data/notifications';
+import { useRecordatoriosStore } from '../store/useRecordatoriosStore';
 import { seleccionarDelaGaleria } from '../data/imageHandler';
 import { requestCameraPermission, requestMediaLibraryPermission } from '../data/permissions';
 
@@ -12,73 +8,28 @@ export default function DetalleRecordatorioScreen({ route, navigation }: any) {
 
     const { id } = route.params;
 
-    const [recordatorio, setRecordatorio] =
-        useState<Recordatorio | null>(null);
+    const recordatorios = useRecordatoriosStore((state) => state.recordatorios);
+    const cargarRecordatorios = useRecordatoriosStore((state) => state.cargarRecordatorios);
+    const eliminarRecordatorioStore = useRecordatoriosStore((state) => state.eliminarRecordatorio);
+    const actualizarFotoRecordatorioStore = useRecordatoriosStore((state) => state.actualizarFotoRecordatorio);
+
+    const recordatorio = recordatorios.find((r) => r.id === id) || null;
 
     useEffect(() => {
-        cargarRecordatorio();
+        if (recordatorios.length === 0) {
+            cargarRecordatorios();
+        }
     }, []);
 
-    const cargarRecordatorio = async () => {
-
-        const lista =
-            await obtenerRecordatorios();
-
-        const encontrado =
-            lista.find(
-                (r: Recordatorio) => r.id === id
-            );
-
-        if (encontrado) {
-            setRecordatorio(encontrado);
-        }
-
-    };
-
     const eliminarRecordatorio = async () => {
-
-        const lista =
-            await obtenerRecordatorios();
-
-        const nuevaLista =
-            lista.filter(
-                (r: Recordatorio) => r.id !== id
-            );
-
-        if (recordatorio?.notificationId) {
-
-            await cancelarNotificacion(
-                recordatorio.notificationId
-            );
-
-        }
-
-        await guardarRecordatorios(
-            nuevaLista
-        );
-
+        await eliminarRecordatorioStore(id);
         navigation.goBack();
-
     };
 
     const eliminarFoto = async () => {
         if (!recordatorio) return;
-
-        const nuevaLista = await obtenerRecordatorios();
-        const indexRec = nuevaLista.findIndex(
-            (r: Recordatorio) => r.id === id
-        );
-
-        if (indexRec !== -1) {
-            nuevaLista[indexRec].foto = undefined;
-            await guardarRecordatorios(nuevaLista);
-            setRecordatorio({
-                ...recordatorio,
-                foto: undefined
-            });
-
-            Alert.alert('Éxito', 'Foto eliminada');
-        }
+        await actualizarFotoRecordatorioStore(id, undefined);
+        Alert.alert('Éxito', 'Foto eliminada');
     };
 
     const cambiarFoto = async () => {
@@ -157,22 +108,8 @@ export default function DetalleRecordatorioScreen({ route, navigation }: any) {
 
     const guardarNuevaFoto = async (photoData: string) => {
         if (!recordatorio) return;
-
-        const nuevaLista = await obtenerRecordatorios();
-        const indexRec = nuevaLista.findIndex(
-            (r: Recordatorio) => r.id === id
-        );
-
-        if (indexRec !== -1) {
-            nuevaLista[indexRec].foto = photoData;
-            await guardarRecordatorios(nuevaLista);
-            setRecordatorio({
-                ...recordatorio,
-                foto: photoData
-            });
-
-            Alert.alert('Éxito', 'Foto actualizada');
-        }
+        await actualizarFotoRecordatorioStore(id, photoData);
+        Alert.alert('Éxito', 'Foto actualizada');
     };
 
     if (!recordatorio) {

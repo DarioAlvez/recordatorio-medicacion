@@ -16,7 +16,7 @@ const compressImage = async (
             await ImageManipulator.manipulateAsync(
                 uri,
                 [{ resize: { width: 1000, height: 1000 } }],
-                { compress: 0.8, format: 'jpeg' }
+                { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
             );
 
         const base64 = await FileSystem.readAsStringAsync(

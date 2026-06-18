@@ -133,3 +133,31 @@ Parcial 1:
 https://drive.google.com/drive/folders/1iNfAzBgsp0DUFEfH9065Wkh1pYc8yBhx?usp=sharing
 
 Parcial 2:
+
+
+---
+
+## Estado Global con Zustand 
+
+Se integró **Zustand** para la gestión del estado global de los recordatorios de medicamentos.
+
+Se creó un store global en `src/store/useRecordatoriosStore.ts` que maneja:
+- **`recordatorios`**: La lista principal que se comparte en toda la app.
+- **Acciones**:
+  - `cargarRecordatorios()`: Carga los recordatorios guardados en `AsyncStorage`.
+  - `agregarRecordatorio(nuevo)`: Guarda un nuevo recordatorio en almacenamiento y actualiza el store.
+  - `eliminarRecordatorio(id)`: Cancela notificaciones pendientes, elimina del almacenamiento y actualiza el store.
+  - `actualizarFotoRecordatorio(id, foto)`: Actualiza o elimina la foto de un recordatorio y sincroniza con el almacenamiento.
+
+
+Se implemento el asistente de IA integrado en el IDE de antigravity para desarrollar la implementacion de punto 5 del trabajo practico, Test mediante la libreria Jest. El promnt utilizado fue:
+
+"""Mediante la implementacion de la libreria Jest integrar a la solucion tres test basicos del proyecto que incluyan un componente re utilizable, un test de funcion logica y por ultimo un test sobre el store global implementado con Zustand en el manejo de recordatorios guardados.  Por ultimo estos tres test de ejmeplo deben correr con un unico comando."""
+
+El Plan de implementacion devuelto por el asistente  se encuentra en el archivo ./TEST_implementation_plan.md
+
+La ejecucion de todos los test se realiza mediante el comando `npm test`
+
+
+
+

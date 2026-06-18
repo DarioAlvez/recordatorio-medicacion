@@ -1,29 +1,16 @@
-import { useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { pedirPermisosNotificaciones } from '../data/notifications';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
-
-import { obtenerRecordatorios } from '../data/storage';
-import { Recordatorio } from '../types/types';
+import { useRecordatoriosStore } from '../store/useRecordatoriosStore';
 
 export default function HomeScreen({ navigation }: any) {
-
-    const [recordatorios, setRecordatorios] =
-        useState<Recordatorio[]>([]);
+    const recordatorios = useRecordatoriosStore((state) => state.recordatorios);
+    const cargarRecordatorios = useRecordatoriosStore((state) => state.cargarRecordatorios);
 
     useFocusEffect(() => {
         cargarRecordatorios();
         pedirPermisosNotificaciones();
     });
-
-    const cargarRecordatorios = async () => {
-
-        const lista =
-            await obtenerRecordatorios();
-
-        setRecordatorios(lista);
-
-    };
 
     const cerrarSesion = () => {
         navigation.replace('Login');
