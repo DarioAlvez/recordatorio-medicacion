@@ -10,6 +10,13 @@ Es una App de recordatorios de medicamentos con la posibilidad de guardar los mi
 **async-storage** para guardar los recordatorios y el user registrado.
 **@react-navigation/native** para la navegación entre pantallas.
 
+Parcial 2:
+
+**expo-camera** Libreria de acceso a Camara del dispositivo 
+**expo-image-picker** Libreria de acceso a Galeria de dispositivo
+**Expo-location** Libreria de acceso GPS
+**React-Native-Map** Libreria de Mapa de react-native (complementos MapView, Marker, PROVIDER_GOOGLE)
+
 
 *Funcionalidades: 
 
@@ -28,20 +35,29 @@ recordatorio-medicacion/
 ├── App.tsx
 ├── assets/
 │   └── Fondo.jpg
+│
 └── src/
+    ├── data/
+    │   ├── farmacias.ts
+    │   ├── imageHandler.ts
+    │   ├── location.ts
+    │   ├── notifications.ts
+    │   ├── permissions.ts
+    │   └── storage.ts
+    │
+    ├── navigation/
+    │   └── NavegacionPrincipal.tsx
+    │
     ├── screens/
     │   ├── LoginScreen.tsx
     │   ├── RegistroScreen.tsx
     │   ├── HomeScreen.tsx
     │   ├── GestionRecordatorioScreen.tsx
-    │   └── DetalleRecordatorioScreen.tsx
-    │
-    ├── navigation/
-    │   └── NavegacionPrincipal.tsx
-    │
-    ├── data/
-    │   ├── storage.ts
-    │   └── notifications.ts
+    │   ├── DetalleRecordatorioScreen.tsx
+    │   ├── CamaraScreen.tsx
+    │   ├── FarmaciasScreen.tsx
+    │   ├── AgregarFarmaciaScreen.tsx
+    │   └── EditarFarmaciaScreen.tsx
     │
     └── types/
         └── types.ts
@@ -79,6 +95,13 @@ Editar o eliminar recordatorio
 `npx expo install @react-navigation/native @react-navigation/native-stack`
 `npx expo install react-native-screens`
 `npx expo install react-native-safe-area-context`
+
+(Parcial 2)
+
+`npx expo install expo-image-picker expo-camera expo-image-manipulator`
+`npx expo install expo-location`
+`npx expo install react-native-maps`
+`
 
 *Codigo para ejecutar:
 
