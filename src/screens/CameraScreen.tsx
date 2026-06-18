@@ -1,11 +1,5 @@
 import { useRef, useState } from 'react';
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    Alert
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import * as Camera from 'expo-camera';
 import { capturarFoto } from '../data/imageHandler';
 
@@ -75,7 +69,7 @@ export default function CameraScreen({
                 Alert.alert(
                     'Error',
                     result.error ||
-                        'Error al procesar foto'
+                    'Error al procesar foto'
                 );
             }
         } catch (error) {

@@ -1,5 +1,4 @@
 import * as Location from 'expo-location';
-import { Linking } from 'react-native';
 
 export type PermissionStatus = 'granted' | 'denied' | 'undetermined';
 
@@ -86,9 +85,9 @@ export const calcularDistancia = (
     const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos((lat1 * Math.PI) / 180) *
-            Math.cos((lat2 * Math.PI) / 180) *
-            Math.sin(dLng / 2) *
-            Math.sin(dLng / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distancia = R * c;
 

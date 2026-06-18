@@ -102,6 +102,8 @@ Editar o eliminar recordatorio
 
 *Instalacion de librerias:
 
+(Parcial 1)
+
 `npx expo install expo-notifications`
 `npx expo install expo-device`
 `npx expo install @react-native-async-storage/async-storage`
@@ -109,13 +111,16 @@ Editar o eliminar recordatorio
 `npx expo install react-native-screens`
 `npx expo install react-native-safe-area-context`
 
-(Parcial 2)
+(Parcial 2) 
 
 `npx expo install expo-image-picker expo-camera expo-image-manipulator`
 `npx expo install expo-location`
 `npx expo install react-native-maps`
 `npx expo install expo-contacts`
 `npx expo install expo-calendar`
+`npx expo install zustand`
+`npx expo install jest @types/jest ts-jest`
+
 
 
 *Codigo para ejecutar:
@@ -151,7 +156,7 @@ Se creó un store global en `src/store/useRecordatoriosStore.ts` que maneja:
   - `actualizarFotoRecordatorio(id, foto)`: Actualiza o elimina la foto de un recordatorio y sincroniza con el almacenamiento.
 
 
-Se implemento el asistente de IA integrado en el IDE de antigravity para desarrollar la implementacion de punto 5 del trabajo practico, Test mediante la libreria Jest. El promnt utilizado fue:
+Se implemento el asistente de IA integrado en el IDE de antigravity para desarrollar la implementacion de punto 5 del trabajo practico, Test mediante la libreria Jest. El prompt utilizado fue:
 
 """Mediante la implementacion de la libreria Jest integrar a la solucion tres test basicos del proyecto que incluyan un componente re utilizable, un test de funcion logica y por ultimo un test sobre el store global implementado con Zustand en el manejo de recordatorios guardados.  Por ultimo estos tres test de ejmeplo deben correr con un unico comando."""
 

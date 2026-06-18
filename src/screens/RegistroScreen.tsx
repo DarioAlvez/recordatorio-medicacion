@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Alert, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Platform } from 'react-native';
-
 import { guardarUsuario } from '../data/storage';
 
 export default function RegistroScreen({ navigation }: any) {

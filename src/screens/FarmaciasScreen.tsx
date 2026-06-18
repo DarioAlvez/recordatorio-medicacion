@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { StyleSheet, View, Text, TouchableOpacity, FlatList,  Alert, Linking, ActivityIndicator} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, FlatList, Alert, ActivityIndicator } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { obtenerFarmacias, eliminarFarmacia } from '../data/farmacias';
-import { requestLocationPermission, getLocationPermissionStatus, obtenerUbicacionActual, calcularDistancia} from '../data/location';
+import { requestLocationPermission, getLocationPermissionStatus, obtenerUbicacionActual, calcularDistancia } from '../data/location';
 import { Farmacia, UbicacionActual } from '../types/types';
 import React from 'react';
 
 export default function FarmaciasScreen({ navigation }: any) {
     const [farmacias, setFarmacias] = useState<Farmacia[]>([]);
-    const [ubicacionActual, setUbicacionActual] =
-        useState<UbicacionActual | null>(null);
+    const [ubicacionActual, setUbicacionActual] = useState<UbicacionActual | null>(null);
     const [loading, setLoading] = useState(true);
-    const [farmaciasConDistancia, setFarmaciasConDistancia] =
-        useState<
-            (Farmacia & { distancia: number })[]
-        >([]);
+    const [farmaciasConDistancia, setFarmaciasConDistancia] = useState<(Farmacia & { distancia: number })[]>([]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-        cargarDatos();
-    }, [])
-);
+    useFocusEffect(
+        React.useCallback(() => {
+            cargarDatos();
+        }, [])
+    );
 
     const cargarDatos = async () => {
         try {
@@ -116,7 +112,7 @@ export default function FarmaciasScreen({ navigation }: any) {
                 </Text>
                 <Text style={styles.telefonoFarmacia}>
                     📞 {item.telefono}
-                </Text>                
+                </Text>
             </View>
             <TouchableOpacity
                 style={styles.deleteButton}

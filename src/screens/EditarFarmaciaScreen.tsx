@@ -1,21 +1,6 @@
 import { useEffect, useState } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView
-} from 'react-native';
-
-import {
-    obtenerFarmaciaPorId,
-    editarFarmacia,
-    eliminarFarmacia
-} from '../data/farmacias';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { obtenerFarmaciaPorId, editarFarmacia, eliminarFarmacia } from '../data/farmacias';
 import { Farmacia } from '../types/types';
 
 export default function EditarFarmaciaScreen({
