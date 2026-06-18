@@ -155,9 +155,7 @@ Se implemento el asistente de IA integrado en el IDE de antigravity para desarro
 """Mediante la implementacion de la libreria Jest integrar a la solucion tres test basicos del proyecto que incluyan un componente re utilizable, un test de funcion logica y por ultimo un test sobre el store global implementado con Zustand en el manejo de recordatorios guardados.  Por ultimo estos tres test de ejmeplo deben correr con un unico comando."""
 
 El Plan de implementacion devuelto por el asistente  se encuentra en el archivo ./TEST_implementation_plan.md
-
-La ejecucion de todos los test se realiza mediante el comando `npm test`
-
+Se adjunta en el Drive con el video demo una imagen del resultado de Run Test TP2RunTestApp.jpg
 
 
 
